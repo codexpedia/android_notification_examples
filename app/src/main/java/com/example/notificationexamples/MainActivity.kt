@@ -1,9 +1,12 @@
 package com.example.notificationexamples
 
+import android.annotation.TargetApi
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.NotificationCompat
@@ -13,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     companion object {
+        val NOTIFICATION_CHANNEL_ID = "lksjgioajw20u43knjak"
         val ACTION1 = "com.example.notificationexamples.action1"
         val ACTION2 = "com.example.notificationexamples.action2"
         val ACTION3 = "com.example.notificationexamples.action3"
@@ -27,10 +31,20 @@ class MainActivity : AppCompatActivity() {
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("A simple notification")
                     .setContentText("Swipe to dismiss it")
+                    .setChannelId(NOTIFICATION_CHANNEL_ID)
                     .setAutoCancel(true)
 
             val notification = mBuilder.build()
+
+
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            @TargetApi(26)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                        "A simple notification",
+                        NotificationManager.IMPORTANCE_DEFAULT)
+                notificationManager.createNotificationChannel(channel)
+            }
             notificationManager.notify(1, notification)
         }
 
@@ -44,9 +58,17 @@ class MainActivity : AppCompatActivity() {
                     .setContentText("Multi lines content text. Back to app. Back to app. Back to app. Back to app. Back to app. Back to app. Back to app. Back to app.")
                     .setStyle(NotificationCompat.BigTextStyle().bigText("Multi lines content text. Back to app. Back to app. Back to app. Back to app. Back to app. Back to app. Back to app. Back to app."))
                     .setContentIntent(pendingIntentBackToApp)
+                    .setChannelId(NOTIFICATION_CHANNEL_ID)
 
             val notification = mBuilder.build()
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            @TargetApi(26)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                        "A simple notification",
+                        NotificationManager.IMPORTANCE_DEFAULT)
+                notificationManager.createNotificationChannel(channel)
+            }
             notificationManager.notify(2, notification)
         }
 
@@ -69,12 +91,20 @@ class MainActivity : AppCompatActivity() {
                     .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle("Action notification")
                     .setContentText("Click the action buttons below.")
+                    .setChannelId(NOTIFICATION_CHANNEL_ID)
 //                    .setOngoing(true)
                     .addAction(action1)
                     .addAction(action2)
 
             val notification = mBuilder.build()
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            @TargetApi(26)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                        "A simple notification",
+                        NotificationManager.IMPORTANCE_DEFAULT)
+                notificationManager.createNotificationChannel(channel)
+            }
             notificationManager.notify(3, notification)
         }
 
@@ -92,9 +122,17 @@ class MainActivity : AppCompatActivity() {
                     .setContentTitle("collapsed title")
                     .setContentText("collapsed text")
                     .setCustomBigContentView(contentView)
+                    .setChannelId(NOTIFICATION_CHANNEL_ID)
 
             val notification = mBuilder.build()
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            @TargetApi(26)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val channel = NotificationChannel(NOTIFICATION_CHANNEL_ID,
+                        "A simple notification",
+                        NotificationManager.IMPORTANCE_DEFAULT)
+                notificationManager.createNotificationChannel(channel)
+            }
             notificationManager.notify(4, notification)
         }
 
